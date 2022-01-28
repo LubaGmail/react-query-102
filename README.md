@@ -1,3 +1,6 @@
+useLazyQuery React hook
+	The useLazyQuery hook is perfect for executing queries in response to events besides component rendering.
+
 doc-tut
     https://www.apollographql.com/docs/react/data/queries/
 
@@ -59,6 +62,21 @@ Supported fetch polocies
 			subscribeToMore
 			updateQuery
 			
+How does it work?
+	when you call useLazyQuery, it does not immediately execute its associated query. Instead, it returns a query function in its result tuple that you call whenever you're ready to execute the query.
+
+	cache-first policy is Apollo Client's default fetch policy.
+	loading is true (indicating the query is still in flight)
+
+Supported fetch policies
+	cache-first
+	cache-only
+	cache-and-network
+	network-only
+	no-cache		Similar to network-only, except the query's result is not stored in the cache.
+	standby			Uses the same logic as cache-first, except this query does not automatically update when underlying field values change. 
+
+
 
 		
 

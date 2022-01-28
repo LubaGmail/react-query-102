@@ -54,13 +54,18 @@ function Dogs({ onDogSelected }) {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <select name="dog" onChange={onDogSelected}>
-      {data.dogs.map(dog => (
-        <option key={dog.id} value={dog.breed}>
-          {dog.breed}
-        </option>
-      ))}
-    </select>
+    <>
+      <h4>useQuery</h4>
+      <select name="dog" onChange={onDogSelected}
+        className='custom-select'
+      >
+        {data.dogs.map(dog => (
+          <option key={dog.id} value={dog.breed}>
+            {dog.breed}
+          </option>
+        ))}
+      </select>
+    </>
   );
 }
 
@@ -81,12 +86,14 @@ const DogPhoto = ({ breed }) => {
 
   return (
     <div>
+      <h4>refetch</h4>
       <div>
         <img src={data.dog.displayImage} style={{ height: 100, width: 100 }} />
       </div>
-      <button onClick={() => refetch()}>
-        Refetch!
-      </button>
+      <button className='button'
+        onClick={() => refetch({
+          breed: 'dalmatian'      // Always refetches a dalmatian instead of original breed
+        })}>Refetch!</button>
     </div>
   );
 }
@@ -99,11 +106,12 @@ function DelayedQuery() {
 
   return (
     <div>
-      <h3>useLazyQuery</h3>
+      <h4>useLazyQuery</h4>
       {data?.dog && <img src={data.dog.displayImage} style={{ height: 100, width: 100 }} />}
       <br />
-      <button onClick={() => getDog({ variables: { breed: 'bulldog' } })}>
-        Click me!
+      <button className='button'
+        onClick={() => getDog({ variables: { breed: 'bulldog' } })}>
+           Click me!
       </button>
     </div>
   );
@@ -119,16 +127,19 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className='App'>
-        <h2>useQuery</h2>
+       
+        <div>
 
-        {selectedDog && <DogPhoto breed={selectedDog} />}
-
-        <Dogs onDogSelected={onDogSelected} />
-
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-        <hr />
-
-        <DelayedQuery />
+          <div className='child one'>
+            <Dogs onDogSelected={onDogSelected}  />
+          </div>
+          <div className='child two'>
+           {selectedDog && <DogPhoto breed={selectedDog} />}
+          </div>
+          <div className='child three'>
+            <DelayedQuery   />
+          </div>
+        </div>
 
       </div>
     </ApolloProvider>
