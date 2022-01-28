@@ -47,7 +47,7 @@ function Dogs({ onDogSelected }) {
   const { loading, error, data } = useQuery(GET_DOGS, {
     fetchPolicy: "network-only",     // Used for first execution
     // nextFetchPolicy: "cache-first"   // Used for subsequent executions
-    nextFetchPolicy: "cache-and-networ"
+    nextFetchPolicy: "cache-and-network"
   });
 
   if (loading) return "Loading...";
